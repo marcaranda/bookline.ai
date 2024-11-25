@@ -1,8 +1,0 @@
-15:03:57 - INFO - User rented a car: BMW - 2024-12-25
-15:04:00 - INFO - User rented a car: BMW - 2024-12-26
-15:04:06 - ERROR - User tried to rent a car that is not in out cars list: BM
-15:04:13 - INFO - User rented a car: MERCEDES - 2024-12-26
-15:04:15 - ERROR - User tried to rent a car that is already rented for that date: MERCEDES - 2024-12-26
-15:04:22 - INFO - User queried available cars for date: 2024-12-25
-15:04:26 - INFO - User queried available cars for date: 2024-12-26
-15:04:58 - INFO - User queried available cars for date: 2024-12-26
