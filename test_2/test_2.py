@@ -2,6 +2,13 @@ from fastapi import FastAPI
 from datetime import date
 import json
 import os
+import logging
+
+logging.basicConfig(filename='test_2.log',
+                    filemode='a',
+                    format='%(asctime)s - %(levelname)s - %(message)s',
+                    datefmt='%H:%M:%S',
+                    level=logging.INFO)
 
 app = FastAPI()
 
@@ -17,6 +24,8 @@ def dateAvaiablesCars(date: date):
       rentedCarsList = []
 
     avaiblesCars = [car for car in cars if car not in [rentedCar["car"] for rentedCar in rentedCarsList if rentedCar["rentalDate"] == date.strftime('%Y-%m-%d')]]
+
+    logging.info(f"User queried available cars for date: {date}")
     return {f"Available cars for {date}": avaiblesCars}
 
 @app.post("/rentCar")
@@ -43,8 +52,11 @@ def rentCar(car: str, date: date):
           with open('database.json', 'w') as json_file:
               json.dump(rentedCarsList, json_file)
 
+          logging.info(f"User rented a car: {car} - {date}")
           return f"Car {car} rented successfully for {date.strftime('%Y-%m-%d')}"
       else:
+          logging.error(f"User tried to rent a car that is already rented for that date: {car} - {date}")
           return f"Car {car} not available for {date.strftime('%Y-%m-%d')}"
     else:
+        logging.error(f"User tried to rent a car that is not in out cars list: {car}")
         return f"We do not have the car {car} available for rent"
