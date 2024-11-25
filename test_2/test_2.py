@@ -3,6 +3,7 @@ from datetime import date
 
 app = FastAPI()
 
+
 @app.get("/dateAvaiblesCars")
 def dateAvaiablesCars(date: date):
     return 
