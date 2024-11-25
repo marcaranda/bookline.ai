@@ -1,5 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from datetime import date
+import pydantic
 import json
 import os
 import logging
@@ -33,32 +34,35 @@ def date_avaiables_cars(date: date):
   if len(avaiblesCars) > 0:
     return {f"Available cars for {date}": avaiblesCars}
   else:
-    return {f"Non available cars for {date}"}
+    return f"Non available cars for {date}"
+
+class CarRental(pydantic.BaseModel):
+    car: str
+    date: date
 
 @app.post("/rentCar")
-def rent_car(car: str, date: date):
+def rent_car(carRental: CarRental):
   # Check if the car is at the cars list, else return an error message
-  if car in cars:
+  if carRental.car in cars:
     rentedCarsList = load_rented_cars_list()
 
     # Check if the car is available for the date, else return an error message
-    if car not in [rentedCar["car"] for rentedCar in rentedCarsList if rentedCar["rentalDate"] == date.strftime('%Y-%m-%d')]:
-        # Append the new rented car to the list   
-        rentedCar = {
-            "car": car,
-            "rentalDate": date.strftime('%Y-%m-%d')
-        }
-        rentedCarsList.append(rentedCar)
+    if carRental.car not in [rentedCar["car"] for rentedCar in rentedCarsList if rentedCar["rentalDate"] == carRental.date.strftime('%Y-%m-%d')]:
+        # Append the new rented car to the list
+        rentedCarsList.append({
+            "car": carRental.car,
+            "rentalDate": carRental.date.strftime('%Y-%m-%d')
+        })
 
         # Save the rented cars list to database
         with open('database.json', 'w') as json_file:
             json.dump(rentedCarsList, json_file)
 
-        logging.info(f"User rented a car: {car} - {date}")
-        return f"Car {car} rented successfully for {date.strftime('%Y-%m-%d')}."
+        logging.info(f"User rented a car: {carRental.car} - {carRental.date.strftime('%Y-%m-%d')}")
+        return f"Car {carRental.car} rented successfully for {carRental.date.strftime('%Y-%m-%d')}."
     else:
-        logging.error(f"User tried to rent a car that is already rented for that date: {car} - {date}")
-        return f"Car {car} not available for {date.strftime('%Y-%m-%d')}."
+        logging.error(f"User tried to rent a car that is already rented for that date: {carRental.car} - {carRental.date.strftime('%Y-%m-%d')}")
+        return f"Car {carRental.car} not available for {carRental.date.strftime('%Y-%m-%d')}."
   else:
-      logging.error(f"User tried to rent a car that is not in out cars list: {car}")
-      return f"We do not have the car {car} available for rent."
+      logging.error(f"User tried to rent a car that is not in out cars list: {carRental.car}")
+      raise HTTPException(status_code=404, detail=f"Car {carRental.car} not found.")

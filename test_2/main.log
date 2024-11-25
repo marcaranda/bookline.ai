@@ -17,3 +17,27 @@
 17:05:06 - INFO - User queried available cars for date: 2024-12-27
 17:11:07 - INFO - User queried available cars for date: 2024-12-27
 17:11:11 - INFO - User queried available cars for date: 2024-12-25
+17:23:41 - ERROR - User tried to rent a car that is not in out cars list: AUDI
+17:24:11 - INFO - User queried available cars for date: 2024-12-27
+17:27:17 - ERROR - User tried to rent a car that is not in out cars list: AUDI
+17:28:03 - ERROR - User tried to rent a car that is not in out cars list: AUDI
+17:29:34 - ERROR - User tried to rent a car that is already rented for that date: BMW - 2024-12-25
+17:42:56 - INFO - User queried available cars for date: 2024-12-25
+17:44:20 - INFO - User queried available cars for date: 2024-12-25
+17:44:42 - INFO - User rented a car: BMW - 2024-11-25
+17:44:52 - INFO - User rented a car: BMW - 2024-11-26
+17:45:04 - INFO - User rented a car: MERCEDES - 2024-11-26
+17:45:20 - INFO - User rented a car: MERCEDES - 2024-11-27
+17:45:28 - INFO - User rented a car: BMW - 2024-11-27
+17:45:34 - INFO - User rented a car: TOYOTA - 2024-11-27
+17:45:42 - INFO - User rented a car: HYUNDAI - 2024-11-27
+17:47:58 - INFO - User queried available cars for date: 2024-12-24
+17:48:47 - INFO - User queried available cars for date: 2024-12-27
+17:48:53 - INFO - User queried available cars for date: 2024-12-27
+17:49:13 - INFO - User queried available cars for date: 2024-12-26
+17:49:16 - INFO - User queried available cars for date: 2024-12-25
+17:54:12 - INFO - User queried available cars for date: 2024-12-25
+17:54:31 - INFO - User queried available cars for date: 2024-12-25
+17:55:31 - INFO - User queried available cars for date: 2024-12-25
+17:56:11 - INFO - User queried available cars for date: 2024-12-25
+17:57:03 - INFO - User queried available cars for date: 2024-12-23
