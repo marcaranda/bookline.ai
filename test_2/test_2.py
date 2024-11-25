@@ -13,8 +13,11 @@ def dateAvaiablesCars(date: date):
 
 @app.post("/rentCar")
 def rentCar(car: str, date: date):
-    if (car in cars and car not in [rentedCar[0] for rentedCar in rentedCars if rentedCar[1] == date]):
-        rentedCars.append((car, date))
-        return f"Car {car} rented successfully for {date.strftime('%Y-%m-%d')}"
+    if car in cars:
+      if car not in [rentedCar[0] for rentedCar in rentedCars if rentedCar[1] == date]:
+          rentedCars.append((car, date))
+          return f"Car {car} rented successfully for {date.strftime('%Y-%m-%d')}"
+      else:
+          return f"Car {car} not available for {date.strftime('%Y-%m-%d')}"
     else:
-        return f"Car {car} not available for {date.strftime('%Y-%m-%d')}"
+        return f"We do not have the car {car} available for rent"
