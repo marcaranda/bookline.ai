@@ -23,16 +23,16 @@ def load_rented_cars_list():
     else:
         return []
 
-@app.get("/dateAvaiblesCars")
-def date_avaiables_cars(date: date):
+@app.get("/dateAvailableCars")
+def date_available_cars(date: date):
   rentedCarsList = load_rented_cars_list()
 
   # Get the cars that are not rented for the date
-  avaiblesCars = [car for car in cars if car not in [rentedCar["car"] for rentedCar in rentedCarsList if rentedCar["rentalDate"] == date.strftime('%Y-%m-%d')]]
+  availableCars = [car for car in cars if car not in [rentedCar["car"] for rentedCar in rentedCarsList if rentedCar["rentalDate"] == date.strftime('%Y-%m-%d')]]
 
   logging.info(f"User queried available cars for date: {date}")
-  if len(avaiblesCars) > 0:
-    return {f"Available cars for {date}": avaiblesCars}
+  if len(availableCars) > 0:
+    return {f"Available cars for {date}": availableCars}
   else:
     return f"Non available cars for {date}"
 
